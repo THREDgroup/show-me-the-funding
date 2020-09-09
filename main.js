@@ -3,25 +3,37 @@ let all_data = [];
 let offset = 1;
 let CORS_anywhere = "https://cors-anywhere.herokuapp.com/";
 
-// $(function () {
-//     $("#slider-range").slider({
-//         range: true,
-//         min: 1990,
-//         max: 2020,
-//         step: 1,
-//         values: [2015, 2020],
-//         slide: function (event, ui) {
-//             $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-//         }
-//     });
-//     $("#amount").val($("#slider-range").slider("values", 0) +
-//         " - " + $("#slider-range").slider("values", 1));
-// });
+$(function () {
+    let min_handle = $( "#custom-handle-min" );
+    let max_handle = $( "#custom-handle-max" );
+    $("#slider-range").slider({
+        range: true,
+        min: 1990,
+        max: 2020,
+        step: 1,
+        values: [2015, 2020],
+        slide: function (event, ui) {
+            min_handle.text(ui.values[0])
+            max_handle.text(ui.values[1])
+            make_funding_histogram(ui.values[0], ui.values[1]);
+        },
+        create: function (event, ui) {
+            min_handle.text($(this).slider("values")[0])
+            max_handle.text($(this).slider("values")[1])
+            $("#slider-range").hide();
+        }
+    });
+});
 
-$("#submit").on('click', function(event) {
+function clear_results() {
     $("#results_description").html("");
     $("#results").html("");
+}
+
+$("#submit").on('click', function(event) {
     $("#submit").addClass('disabled');
+    $("#submit").html("Loading records...")
+    clear_results();
     all_data = [];
     offset = 1;
     let program_string = $("#exampleFormControlSelect1").val().split(" ").join("+");
@@ -37,7 +49,7 @@ function get_data(program_string) {
             if (response.response.award.length === 0) {
                 $("#submit").removeClass('disabled');
                 $("#submit").html("Load Data");
-                format_data(all_data, 0, 5000);
+                update_slider(all_data);
             } else {
                 console.log(all_data);
                 all_data = all_data.concat(response.response.award);
@@ -49,35 +61,29 @@ function get_data(program_string) {
     });
 }
 
-function format_data(json, lower_year, upper_year) {
-    console.log(lower_year);
-    console.log(upper_year);
+function update_slider() {
 
-    let money = [];
-    let years = []
-    console.log(json);
-    for (let i = 0; i < json.length; i++) {
-        let startYear = parseInt(json[i].startDate.slice(-4));
-        if (startYear >= lower_year && startYear <= upper_year) {
-            console.log(startYear);
-            money.push(json[i].fundsObligatedAmt);
-            years.push(startYear);
-        }
+    for (let i = 0; i < all_data.length; i++) {
+        all_data[i].startYear = parseInt(all_data[i].startDate.slice(-4));
     }
 
-    console.log(years)
+    let years = all_data.map(a => a.startYear);
 
-    $("#results_description").html("Between the years of " + Math.min(...years) + " and " + Math.max(...years) + ", the <b>" + $("#exampleFormControlSelect1").val() + "</b> program had a median funding level of $" + percentile(money, 0.5) + ", with 25th and 75th percentiles of $" + percentile(money, 0.25) + " and $" + percentile(money, 0.75) + ", respectively.")
+    let min_time = Math.min(...years);
+    let max_time = Math.max(...years);
 
-    let trace = {
-        x: money,
-        type: 'histogram',
-        xbins: {size: 100000},
-    };
-    let data = [trace];
-    Plotly.newPlot('money_histogram', data, {yaxis: {title: {text: "Count"}}, xaxis: {title: {text: "Funding"}}});
+    $("#custom-handle-min").text(min_time);
+    $("#custom-handle-max").text(max_time);
+    $("#slider-range").slider("option", {min: min_time, max: max_time, values: [min_time, max_time]});
 
 
+    make_funding_histogram(min_time, max_time);
+    make_time_histogram(years);
+
+    $("#slider-range").show();
+}
+
+function make_time_histogram(years) {
     let trace2 = {
         x: years,
         type: 'histogram',
@@ -87,6 +93,23 @@ function format_data(json, lower_year, upper_year) {
     Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Count"}}, xaxis: {title: {text: "Year"}, tick0: Math.min(...years), dtick: 1.0}});
 }
 
+
+function make_funding_histogram(min_time, max_time) {
+
+    let money = all_data.filter(function(e) {
+        return e.startYear >= min_time && e.startYear <= max_time;
+    }).map(a => a.fundsObligatedAmt);
+
+    $("#results_description").html("Between the years of " + min_time + " and " + max_time + ", the <b>" + $("#exampleFormControlSelect1").val() + "</b> program had a median funding level of $" + percentile(money, 0.5) + ", with 25th and 75th percentiles of $" + percentile(money, 0.25) + " and $" + percentile(money, 0.75) + ", respectively.")
+
+    let trace = {
+        x: money,
+        type: 'histogram',
+        xbins: {size: 100000},
+    };
+    let data = [trace];
+    Plotly.newPlot('money_histogram', data, {yaxis: {title: {text: "Count"}}, xaxis: {title: {text: "Funding"}}});
+}
 
 function percentile(arr, p) {
     if (arr.length === 0) return 0;
@@ -103,7 +126,3 @@ function percentile(arr, p) {
     if (upper >= arr.length) return arr[lower];
     return arr[lower] * (1 - weight) + arr[upper] * weight;
 }
-
-
-// let lower_year = $("#slider-range").slider("values", 0);
-// let upper_year = $("#slider-range").slider("values", 1);

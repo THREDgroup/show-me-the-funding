@@ -1,5 +1,8 @@
 <head>
     <title>NSF Award Visualization</title>
+    <!-- Dis my CSS -->
+    <link rel="stylesheet" href="style.css">
+
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -37,19 +40,14 @@
             <label for="exampleFormControlSelect1">Example select</label>
             <select class="form-control" id="exampleFormControlSelect1" style="width:auto">
                 <option>AM Advanced Manufacturing</option>
+                <option>Dynamics, Control and System D</option>
                 <option>EDSE Engineering Design and Sy</option>
                 <option>IUSE</option>
+                <option>M3X Mind Machine and Motor</option>
+                <option>OE Operations Engineering</option>
             </select>
         </div>
     </form>
-
-<!--    <p>-->
-<!--        <label for="amount">Date range:</label>-->
-<!--        <input type="text" id="amount" readonly style="border:0; font-weight:bold;">-->
-<!--    </p>-->
-
-<!--    <div id="slider-range"></div>-->
-
     <a href="#" class="btn btn-primary" role="button" aria-disabled="true" id="submit">Load Data</a>
 </div>
 
@@ -57,6 +55,11 @@
     <h2>Results</h2>
     <p id="results_description"></p>
     <div id="money_histogram"></div>
+
+    <div id="slider-range">
+        <div id="custom-handle-min" class="ui-slider-handle custom-handle"></div>
+        <div id="custom-handle-max" class="ui-slider-handle custom-handle"></div>
+    </div>
     <div id="time_histogram"></div>
     <script src="./main.js"></script>
 </div>
