@@ -75,7 +75,7 @@ function format_data(json, lower_year, upper_year) {
         xbins: {size: 100000},
     };
     let data = [trace];
-    Plotly.newPlot('money_histogram', data);
+    Plotly.newPlot('money_histogram', data, {yaxis: {title: {text: "Count"}}, xaxis: {title: {text: "Funding"}}});
 
 
     let trace2 = {
@@ -84,7 +84,7 @@ function format_data(json, lower_year, upper_year) {
         xbins: {size: 1},
     };
     let data2 = [trace2];
-    Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Year"}}, xaxis: {title: {text: "Count"}, tick0: Math.min(...years), dtick: 1.0}});
+    Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Count"}}, xaxis: {title: {text: "Year"}, tick0: Math.min(...years), dtick: 1.0}});
 }
 
 
