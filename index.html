@@ -7,12 +7,40 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<!-- JQuery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
     <div class="container">
         <h2>About</h2>
         <p>Lorem ipsum text</p>
-        <h2>The Tool</h2>
+        <h2>Settings</h2>
+         
+<p>
+    <label for="amount">Price range:</label>
+    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  </p>
+   
+  <script>
+    $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    } );
+    </script>
+
+  <div id="slider-range"></div>
+  
         <form>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Example select</label>
@@ -25,6 +53,7 @@
               </select>
             </div>
           </form>
+          <h2>Results</h2>
     <script src="./main.js"></script>
 </div>
 </body>
