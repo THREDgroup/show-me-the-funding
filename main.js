@@ -69,22 +69,22 @@ function format_data(json, lower_year, upper_year) {
 
     $("#results_description").html("Between the years of " + Math.min(...years) + " and " + Math.max(...years) + ", the <b>" + $("#exampleFormControlSelect1").val() + "</b> program had a median funding level of $" + percentile(money, 0.5) + ", with 25th and 75th percentiles of $" + percentile(money, 0.25) + " and $" + percentile(money, 0.75) + ", respectively.")
 
-    var trace = {
+    let trace = {
         x: money,
         type: 'histogram',
         xbins: {size: 100000},
     };
-    var data = [trace];
+    let data = [trace];
     Plotly.newPlot('money_histogram', data);
 
 
-    var trace2 = {
+    let trace2 = {
         x: years,
         type: 'histogram',
         xbins: {size: 1},
     };
-    var data2 = [trace2];
-    Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Year"}}, xaxis: {title: {text: "Count"}}});
+    let data2 = [trace2];
+    Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Year"}}, xaxis: {title: {text: "Count"}, tick0: Math.min(...years), dtick: 1.0}});
 }
 
 
