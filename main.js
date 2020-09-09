@@ -57,11 +57,11 @@ function format_data(json, lower_year, upper_year) {
     let years = []
     console.log(json);
     for (let i = 0; i < json.length; i++) {
-        let startyear = parseInt(json[i].startDate.slice(-4));
-        if (startyear >= lower_year && startyear <= upper_year) {
-            console.log(startyear);
+        let startYear = parseInt(json[i].startDate.slice(-4));
+        if (startYear >= lower_year && startYear <= upper_year) {
+            console.log(startYear);
             money.push(json[i].fundsObligatedAmt);
-            years.push(startyear);
+            years.push(startYear);
         }
     }
 
@@ -84,7 +84,7 @@ function format_data(json, lower_year, upper_year) {
         xbins: {size: 1},
     };
     var data2 = [trace2];
-    Plotly.newPlot('time_histogram', data2);
+    Plotly.newPlot('time_histogram', data2, {yaxis: {title: {text: "Year"}}, xaxis: {title: {text: "Count"}}});
 }
 
 
