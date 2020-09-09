@@ -3,11 +3,12 @@
 $( function() {
     $( "#slider-range" ).slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 1990, 2020 ],
+      min: 1990,
+      max: 2020,
+      step: 1,
+      values: [ 2015, 2020 ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
       }
     });
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
