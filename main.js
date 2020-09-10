@@ -25,17 +25,22 @@ $(function () {
     });
 });
 
-function clear_results() {
-    $("#results_description").html("");
-    $("#results").html("");
-}
-
 $("#submit").on('click', function(event) {
+    // Hide everything
+    $("#results_description").html("");
+    $("#money_histogram").html("");
+    $("#time_histogram").html("");
+    $("#slider-range").hide()
+
+    // Disable hte button
     $("#submit").addClass('disabled');
     $("#submit").html("Loading records...")
-    clear_results();
+
+    // Reset hte data
     all_data = [];
     offset = 1;
+
+    // Start the search
     let program_string = $("#exampleFormControlSelect1").val().split(" ").join("+");
     get_data(program_string);
 })
