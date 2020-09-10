@@ -37,14 +37,20 @@
 
     <form>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select</label>
+            <label for="exampleFormControlSelect1">Select a program</label>
             <select class="form-control" id="exampleFormControlSelect1" style="width:auto">
-                <option>AM Advanced Manufacturing</option>
-                <option>Dynamics, Control and System D</option>
-                <option>EDSE Engineering Design and Sy</option>
+                <optgroup label="CMMI">
+                    <option>AM Advanced Manufacturing</option>
+                    <option>M3X Mind Machine and Motor</option>
+                    <option>Dynamics, Control and System D</option>
+                    <option>EDSE Engineering Design and Sy</option>
+                    <option>OE Operations Engineering</option>
+                </optgroup>
+                <optgroup label="CISE">
+                    <option>HCC Human Centered Computing</option>
+                    <option>Robust Intelligence</option>
+                </optgroup>
                 <option>IUSE</option>
-                <option>M3X Mind Machine and Motor</option>
-                <option>OE Operations Engineering</option>
             </select>
         </div>
     </form>
