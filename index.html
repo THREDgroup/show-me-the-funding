@@ -31,7 +31,7 @@
 <body>
 <div class="container my-5">
     <h2>About</h2>
-    <p>Lorem ipsum text</p>
+    <p>This is a tool to help look up funding statistics for NSF programs. In some cases that is useful for proposal preparation, as you can verify that your budget is not significantly outside of the funding profile for the program. However, when in doubt, you should always talk to the program officer.</p>
 </div>
 <div class="container my-5">
     <div class="row">
@@ -78,8 +78,7 @@
                 </div>
             </form>
             <div class="btn-toolbar">
-                <a href="#" class="btn btn-primary" role="button" aria-disabled="true" id="verify">Verify</a>
-                <a href="#" class="btn btn-secondary mx-2 disabled" role="button" aria-disabled="true" id="submit-custom">Load Data</a>
+                <a href="#" class="btn btn-primary" role="button" aria-disabled="true" id="verify">Verify and Load</a>
             </div>
         </div>
     </div>
@@ -121,13 +120,12 @@
 
 
 </div>
-<script src="./main.js"></script>
 
-<div class="modal fade " tabindex="-1" role="dialog" id="verification-modal">
+<div class="modal fade " tabindex="-1" role="dialog" id="verification-modal-success">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Verification Results</h5>
+                <h5 class="modal-title text-success">Verification Successful</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -135,11 +133,33 @@
             <div class="modal-body" id="verify-modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Looks Good</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="verify-looks-good">Looks Good</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Try Again</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade " tabindex="-1" role="dialog" id="verification-modal-failure">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Verification Failed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="verify-modal-failure-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Try Again</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="javascript/main.js"></script>
+<script src="javascript/verification.js"></script>
+<script src="javascript/utils.js"></script>
 
 </body>
