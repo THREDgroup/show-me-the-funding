@@ -28,18 +28,22 @@
     <!-- Plotly-->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
+
 <body>
+
 <div class="container my-5">
     <h2>About</h2>
     <p>This is a tool to help look up funding statistics for NSF programs. In some cases that is useful for proposal preparation, as you can verify that your budget is not significantly outside of the funding profile for the program. However, when in doubt, you should always talk to the program officer.</p>
+    <p>Finally, although this project uses NSF's API, it is not support, condoned, or endorsed by the National Science Foundation.</p>
 </div>
-<div class="container my-5">
+
+<div class="container">
     <div class="row">
-        <div class="col" id="program-select-col">
+        <div class="col-lg-6 col-12 my-3" id="program-select-col">
             <h2>Select a common program</h2>
             <form>
                 <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1" style="width:auto">
+                    <select class="form-control" id="exampleFormControlSelect1">
                         <optgroup label="CMMI">
                             <option>AM Advanced Manufacturing</option>
                             <option>BMMB Biomech Mechanobiology</option>
@@ -70,7 +74,7 @@
             </form>
             <a href="#" class="btn btn-primary" role="button" aria-disabled="true" id="submit">Load Data</a>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-12 my-3">
             <h2>Search for a program</h2>
             <form>
                 <div class="form-group">
@@ -162,6 +166,18 @@
         </div>
     </div>
 </div>
+
+<div class="container my-5 py-5">
+    <h2>Contributing</h2>
+    <p>The entirety of this project is hosted in <a href="https://github.com/THREDgroup/show-me-the-money">this Github repo</a>. Lend a hand!</p>
+</div>
+
+<footer class="footer">
+    <div class="container text-center">
+        <span class="text-muted"> &copy; Copyright <script> document.write(new Date().getFullYear()) </script> <a href="https://www.cmccomb.com">Chris McComb</a> and <a href="https://thred.group">THRED Group</a></span>
+    </div>
+</footer>
+
 
 <script src="javascript/main.js"></script>
 <script src="javascript/verification.js"></script>
