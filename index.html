@@ -89,13 +89,13 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="summary-tab" data-toggle="tab" href="#summary" role="tab" aria-controls="home" aria-selected="true">Summary</a>
+            <a class="nav-link active disabled" id="summary-tab" data-toggle="tab" href="#summary" role="tab" aria-controls="home" aria-selected="true">Summary</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="program-size-tab" data-toggle="tab" href="#program-size" role="tab" aria-controls="profile" aria-selected="false">Program Size</a>
+            <a class="nav-link disabled" id="program-size-tab" data-toggle="tab" href="#program-size" role="tab" aria-controls="profile" aria-selected="false">Program Size</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="award-size-tab" data-toggle="tab" href="#award-size" role="tab" aria-controls="messages" aria-selected="false">Award Size</a>
+            <a class="nav-link disabled" id="award-size-tab" data-toggle="tab" href="#award-size" role="tab" aria-controls="messages" aria-selected="false">Award Size</a>
         </li>
     </ul>
 
@@ -105,16 +105,21 @@
                 <p id="results_description"></p>
             </div>
         </div>
+
+
         <div class="tab-pane" id="award-size" role="tabpanel" aria-labelledby="award-size-tab">
-            <div id="money_histogram"></div>
+            <div id="money_histogram" class="mt-5"></div>
 
             <div id="slider-range">
                 <div id="custom-handle-min" class="ui-slider-handle custom-handle"></div>
                 <div id="custom-handle-max" class="ui-slider-handle custom-handle"></div>
             </div>
         </div>
+
+
         <div class="tab-pane" id="program-size" role="tabpanel" aria-labelledby="program-size-tab">
-            <div id="time_histogram"></div>
+            <div id="time_histogram" class="my-5"></div>
+            <div id="money_time_histogram" class="my-5"></div>
         </div>
     </div>
 
@@ -144,7 +149,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-danger">Verification Failed</h5>
+                <h5 class="modal-title text-danger">Verification Failed :(</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
