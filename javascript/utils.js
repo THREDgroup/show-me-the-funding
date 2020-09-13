@@ -13,3 +13,9 @@ function percentile(arr, p) {
     if (upper >= arr.length) return arr[lower];
     return arr[lower] * (1 - weight) + arr[upper] * weight;
 }
+
+function sum_array(arr) {
+    return arr.reduce(function(a, b){
+        return a + b;
+    }, 0)
+}
