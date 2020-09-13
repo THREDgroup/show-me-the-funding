@@ -17,6 +17,8 @@ let all_data = [
     }
 ];
 
+let consolidated_data = all_data;
+
 let offset = 1;
 let CORS_anywhere = "https://cors-anywhere.herokuapp.com/";
 let spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  ';
@@ -109,8 +111,10 @@ function supplement_data() {
 }
 
 function initial_parse(program_string) {
-
+    console.log(sum_array(all_data.map(a=>parseInt(a.fundsObligatedAmt))));
     supplement_data();
+    consolidate_collaborative_research();
+    console.log(sum_array(all_data.map(a=>parseInt(a.fundsObligatedAmt))));
 
     let years = all_data.map(a => a.startYear);
 
@@ -162,7 +166,7 @@ function make_time_histogram(years) {
 }
 
 function make_summary(min_time, max_time, program_string) {
-    let money = get_money(min_time, max_time);
+    let money = get_money(all_data, min_time, max_time);
 
     let p50 = percentile(money, 0.5);
     let p25 = percentile(money, 0.25);
@@ -180,8 +184,8 @@ function make_summary(min_time, max_time, program_string) {
     $("#results_description").html(html_string);
 }
 
-function get_money(min_time, max_time) {
-    return all_data.filter(function (e) {
+function get_money(data, min_time, max_time) {
+    return data.filter(function (e) {
         return e.startYear >= min_time && e.startYear <= max_time;
     }).map(a => a.fundsObligatedAmt);
 }
@@ -189,7 +193,16 @@ function get_money(min_time, max_time) {
 
 function make_funding_histogram(min_time, max_time) {
 
-    let money = get_money(min_time, max_time);
+    let the_good_data = [];
+    if ($("#separate-awards-label").hasClass('active')) {
+        console.log("using all data", all_data.length);
+        the_good_data = all_data
+    } else {
+        console.log("using consolidated data", consolidated_data.length);
+        the_good_data = consolidated_data;
+    }
+    let money = get_money(the_good_data, min_time, max_time);
+    console.log(money);
 
     let trace = {
         x: money,
@@ -205,7 +218,8 @@ function make_funding_histogram(min_time, max_time) {
 
 
 function make_money_time_histogram(years) {
-    let money = get_money(Math.min(...years), Math.max(...years))
+
+    let money = get_money(all_data, Math.min(...years), Math.max(...years))
 
     let trace2 = {
         histfunc: "sum",
@@ -272,5 +286,52 @@ function make_type_histogram(years) {
 }
 
 
+function consolidate_collaborative_research() {
+    let all_data_clone = JSON.parse(JSON.stringify(all_data));
+
+
+    // Start fresh
+    consolidated_data = all_data_clone.filter(function(e) {
+        if (!e.collab) {
+            return e;
+        }
+    });
+
+    // Unfortunately this probably needs a for loop
+    let collab_data = all_data_clone.filter(function(e) {
+        if (e.collab) {
+            return e;
+        }
+    });
+
+    // Sort the damn thing
+    collab_data.sort(function(a, b) {
+        if (a.title > b.title) return 1;
+        if (b.title > a.title) return -1;
+        return 0;
+    });
+
+    for (let i=0; i<(collab_data.length-1); i++) {
+        let end_of_consol= consolidated_data.length-1
+        if (collab_data[i].title === consolidated_data[end_of_consol].title) {
+            let current = parseInt(consolidated_data[end_of_consol].fundsObligatedAmt);
+            let newnew = parseInt(collab_data[i].fundsObligatedAmt);
+            consolidated_data[end_of_consol].fundsObligatedAmt = (current + newnew).toString();
+            console.log(current, newnew, consolidated_data[end_of_consol].fundsObligatedAmt);
+        } else {
+            consolidated_data = consolidated_data.concat([collab_data[i]]);
+        }
+    }
+}
+
+$("#separate-awards").on('click', update_money_histogram);
+$("#consolidate-awards").on('click', update_money_histogram);
+
+
+function update_money_histogram() {
+    let range = $("#slider-range").slider("values");
+
+    make_funding_histogram(parseInt(range[0]), parseInt(range[1]));
+}
 
 
