@@ -58,8 +58,9 @@ function prepare_for_load() {
     $("#money_histogram").html("");
     $("#time_histogram").html("");
     $("#money_time_histogram").html("");
-    $("#typehistogram").html("");
-    $("#slider-range").hide()
+    $("#type_histogram").html("");
+    $("#slider-range").hide();
+    $("#collab-toggle").hide();
 
     // Reset hte data
     all_data = [];
@@ -133,6 +134,7 @@ function initial_parse(program_string) {
     // Another tab
     update_slider(min_time, max_time);
     make_funding_histogram(min_time, max_time);
+    $("#collab-toggle").show();
     $("#award-size-tab").removeClass("disabled");
 
     // Another tab
