@@ -292,7 +292,6 @@ function make_type_histogram(years) {
 
 }
 
-
 function consolidate_collaborative_research() {
     let all_data_clone = JSON.parse(JSON.stringify(all_data));
 
