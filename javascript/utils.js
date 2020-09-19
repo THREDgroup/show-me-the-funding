@@ -19,3 +19,7 @@ function sum_array(arr) {
         return a + b;
     }, 0)
 }
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
