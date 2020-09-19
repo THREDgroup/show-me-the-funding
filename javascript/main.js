@@ -343,24 +343,16 @@ function update_money_histogram() {
 
 function make_data_table() {
     let table = $("#data_table");
-    let table_content = "<table id='formatted-table'><thead><tr><th>Title</th><th>Start</th><th>End</th><th>Funding</th><th>Link</th></tr></thead>";
-    let keys = ["title", "startDate", "expDate"];
+    let table_content = "<table id='formatted-table'><thead><tr><th>Title</th><th>Start</th><th>End</th><th>Funding</th></tr></thead>";
     all_data.forEach(function(award, index) {
-        table_content += "<tr>";
-        keys.forEach(function(key, index) {
-            table_content += ("<td>" + award[key] + "</td>");
-        });
-        table_content += ("<td>$" + numberWithCommas(award.fundsObligatedAmt) + "</td>")
         let url = "https://www.nsf.gov/awardsearch/showAward?AWD_ID=" + award.id;
-        table_content += ("<td><a href='" + url + "' target='_blank'>" + url + "</a></td>");
+        table_content += "<tr>";
+        table_content += ("<td><a href='" + url + "' target='_blank'>" + award.title + "</a></td>");
+        table_content += ("<td>" + award.startDate + "</td>")
+        table_content += ("<td>" + award.expDate + "</td>")
+        table_content += ("<td>$" + numberWithCommas(award.fundsObligatedAmt) + "</td>")
         table_content += "</tr>";
     });
-
-        // eager: undefined,
-        // goali: undefined,
-        // collab: undefined,
-        // rapid: undefined,
-        // career: undefined
 
     table_content += "</table>";
 
