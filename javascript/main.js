@@ -343,7 +343,7 @@ function update_money_histogram() {
 
 function make_data_table() {
     let table = $("#data_table");
-    let table_content = "<table class='table'><thead class='thead-light'><tr><th>Title</th><th>Start</th><th>End</th><th>Funding</th><th>Link</th></tr></thead>";
+    let table_content = "<table id='formatted-table'><thead><tr><th>Title</th><th>Start</th><th>End</th><th>Funding</th><th>Link</th></tr></thead>";
     let keys = ["title", "startDate", "expDate"];
     all_data.forEach(function(award, index) {
         table_content += "<tr>";
@@ -365,5 +365,6 @@ function make_data_table() {
     table_content += "</table>";
 
     table.html(table_content);
+    $("#formatted-table").DataTable();
 }
 
