@@ -7,9 +7,9 @@ $("#verify").on('click', function(event) {
 
 function verify_program_string(program_string, this_button) {
     $.ajax({
-        url: CORS_anywhere + "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate&offset="+offset,
+        url: "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate&offset="+offset,
         type: "GET",
-        crossDomain: true,
+        dataType: 'jsonp',
         success: function (response) {
             $(this_button).html("Verify and Load");
             if (response.response.award.length === 0) {

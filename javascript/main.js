@@ -20,7 +20,6 @@ let all_data = [
 let consolidated_data = all_data;
 
 let offset = 1;
-let CORS_anywhere = "https://cors-anywhere.herokuapp.com/";
 let spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  ';
 
 // Plotly
@@ -83,9 +82,9 @@ $("#submit").on('click', function (event) {
 
 function get_data(program_string, this_button, reset) {
     $.ajax({
-        url: CORS_anywhere + "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string.split(" ").join("+") + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate&offset=" + offset,
+        url: "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string.split(" ").join("+") + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate&offset=" + offset,
         type: "GET",
-        crossDomain: true,
+        dataType: 'jsonp',
         success: function (response) {
             all_data = all_data.concat(response.response.award);
             this_button.html(spinner + all_data.length + " records loaded");
