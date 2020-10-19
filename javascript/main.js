@@ -82,7 +82,7 @@ $("#submit").on('click', function (event) {
 
 function get_data(program_string, this_button, reset) {
     $.ajax({
-        url: "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string.split(" ").join("+") + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate&offset=" + offset,
+        url: "https://api.nsf.gov/services/v1/awards.json?agency=NSF&fundProgramName=%22" + program_string.split(" ").join("+") + "%22&printFields=id,title,fundsObligatedAmt,piFirstName,piLastName,startDate,expDate,fundProgramName&offset=" + offset,
         type: "GET",
         dataType: 'jsonp',
         success: function (response) {
